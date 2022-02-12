@@ -1,0 +1,74 @@
+.content{
+    width: 375px;
+    height: 667px;
+    background-color: #fff;
+
+    position: relative;
+}
+
+/* Esse trecho de código faz todo o layout da tela de entrada sumir */
+/* .entry-screen{
+    display: none;
+} */
+
+.entry-screen img{
+    width: 130px;
+    height: 92px;
+
+    position: absolute;
+    left: 122px;
+    top: 72px;
+}
+
+.entry-screen input{
+    width: 260px;
+    height: 54px;
+
+    position: absolute;
+    left: 58px;
+    top: 258px;
+    
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 25px;
+
+    border: 1px solid #d7d7d7;
+    border-radius: 4px;
+}
+
+.entry-screen input::placeholder{
+    text-align: center;
+}
+
+.entry-screen .entry-button{
+    width: 109px;
+    height: 45px;
+
+    position: absolute;
+    left: 133px;
+    top: 327px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 25px;
+    color: #696969;
+
+    background-color: #e7e7e7;
+    border-radius: 9px;
+    /*TIRA A ANIMAÇÃO DE CLIQUE DO BOTÃO*/
+    border: 1px solid #e7e7e7;
+}
+
+.entry-screen .entry-button:hover{
+    background-color: #969696;
+}
