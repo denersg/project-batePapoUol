@@ -3,7 +3,7 @@
     height: 667px;
 
     position: relative;
-    display: none;
+    /* display: none; */
 
     background-color: #f3f3f3;
 }
@@ -44,8 +44,9 @@
 /* ------------- Compartimento do chat ------------- */
 
 .container-chat{
+    width: 300px;
     /* background-color: limegreen; */
-    height: 200px;
+    /* height: 200px; */
 
     position: absolute;
     top: 80px;
@@ -93,6 +94,10 @@
     font-size: 18px;
     line-height: 21px;
     color: #000;
+}
+
+input:focus{
+    outline: 0;
 }
 
 .footer ion-icon{

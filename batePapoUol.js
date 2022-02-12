@@ -13,6 +13,7 @@ function registerUserAndEnterTheRoom(){
 
     if(whenSuccessful){
         stayConnected();
+        loadMessages();
     }
 }
 
@@ -38,7 +39,37 @@ function inCaseOfError(error){
 //Mantém o usuário conectado
 function stayConnected(){
     let data = {name: userName}, promise;
+
+    //Envia o nome do usuário a cada 5 segundos
     setInterval( function (){
         promise = axios.post("https://mock-api.driven.com.br/api/v4/uol/status", data);
     }, 5000)
+}
+
+function loadMessages(){
+    let messages = [];
+    const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages");
+    promise.then(mostrarResposta);
+}
+
+function mostrarResposta(resposta){
+    // console.log("RESPOSTA:")
+    // console.log(resposta.data)
+    let messages = resposta.data;
+    for(let i = 0; i < messages.length; i++){
+        // console.log(messages[i].text)
+        const message = messages[i];
+        message.innerHTML = mostrarMensagemNaTela(message);
+        /*Para strings sem espaço q/ escapam da tela. O máximo de caracteres q/ cabem na tela é 40*/
+        // console.log(message.text.length)
+    }
+}
+
+function mostrarMensagemNaTela(message){
+    const ul = document.querySelector("ul");
+    ul.innerHTML += `
+        <li>
+            ${message.text}
+        </li>
+    `;
 }
