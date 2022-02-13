@@ -1,6 +1,7 @@
 let userName;
 
-registerUserAndEnterTheRoom();
+//Tempo para carregar a página de entrada
+setTimeout(registerUserAndEnterTheRoom, 500);
 
 function registerUserAndEnterTheRoom(){
     userName = prompt("Qual o seu nome?");
@@ -12,6 +13,7 @@ function registerUserAndEnterTheRoom(){
     promise.catch(inCaseOfError);//Quando erro
 
     if(whenSuccessful){
+        loadHomePage();
         stayConnected();
         loadMessages();
     }
@@ -36,6 +38,17 @@ function inCaseOfError(error){
     console.log("Mensagem de erro: " + error.response.data)
 }
 
+//Carrega a página inicial
+function loadHomePage(){
+    const hideEntryScreen = document.querySelector(".entry-screen");
+    hideEntryScreen.classList.add("hidden");
+
+    const elemHomeScreen = document.querySelector(".home-screen");
+    if(elemHomeScreen.classList.contains("hidden")){
+        elemHomeScreen.classList.remove("hidden");
+    }
+}
+
 //Mantém o usuário conectado
 function stayConnected(){
     let data = {name: userName}, promise;
@@ -49,27 +62,53 @@ function stayConnected(){
 function loadMessages(){
     let messages = [];
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages");
-    promise.then(mostrarResposta);
+    promise.then(showResponse);
 }
 
-function mostrarResposta(resposta){
+function showResponse(response){
     // console.log("RESPOSTA:")
     // console.log(resposta.data)
-    let messages = resposta.data;
+    let messages = response.data;
     for(let i = 0; i < messages.length; i++){
         // console.log(messages[i].text)
         const message = messages[i];
-        message.innerHTML = mostrarMensagemNaTela(message);
+        message.innerHTML = showMessageOnScreen(message, i);
         /*Para strings sem espaço q/ escapam da tela. O máximo de caracteres q/ cabem na tela é 40*/
         // console.log(message.text.length)
     }
 }
 
-function mostrarMensagemNaTela(message){
+function showMessageOnScreen(message, cont){
     const ul = document.querySelector("ul");
-    ul.innerHTML += `
-        <li>
-            ${message.text}
-        </li>
-    `;
+    // console.log(cont)
+    // console.log(message.type)
+    if(message.type == "status"){
+        // console.log("STATUS!!!")
+        ul.innerHTML += `
+            <li class="status-message message-box">
+                <span>(${message.time})</span> <strong>${message.from}</strong> ${message.text}
+            </li>
+        `;
+    }
+    else if(message.type == "message"){
+        // console.log("MESSAGE!!!")
+        ul.innerHTML += `
+            <li class="normal-message message-box">
+                <span>(${message.time})</span> <strong>${message.from}</strong> para <strong>${message.to}</strong>: ${message.text}
+            </li>
+        `;
+    }
+    else if(message.type == "private_message"){
+        // console.log("PRIVATE!!!")
+        ul.innerHTML += `
+            <li class="private-message message-box">
+                <span>(${message.time})</span> <strong>${message.from}</strong> reservadamente para <strong>${message.to}</strong>: ${message.text}
+            </li>
+        `;
+    }
+    // ul.innerHTML += `
+    //     <li>
+    //         ${cont} -> ${message.text}
+    //     </li>
+    // `;
 }

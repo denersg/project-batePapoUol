@@ -1,11 +1,8 @@
 .home-screen{
+    /* background-color: aqua; */
     width: 375px;
-    height: 667px;
 
     position: relative;
-    /* display: none; */
-
-    background-color: #f3f3f3;
 }
 
 /* ------------- Cabeçalho fixo ------------- */
@@ -43,13 +40,54 @@
 
 /* ------------- Compartimento do chat ------------- */
 
+.spacer{
+    /* background-color: tomato; */
+    background-color: #f3f3f3;
+    height: 90px;
+}
+
 .container-chat{
-    width: 300px;
-    /* background-color: limegreen; */
-    /* height: 200px; */
+    width: 375px;
+    background-color: #f3f3f3;
 
     position: absolute;
-    top: 80px;
+    top: 85px;
+}
+
+/* .message-margin{
+    margin-top: 4px;
+} */
+
+.message-box{
+    padding: 13px 8px;
+    margin-top: 4px;
+
+    border-radius: 2px;
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.container-chat span{
+    color: #aaaaaa;
+}
+
+.container-chat strong{
+    font-weight: 700;
+}
+
+.status-message{
+    background-color: #dcdcdc;
+}
+
+.normal-message{
+    background-color: #ffffff;
+}
+
+.private-message{
+    background-color: #ffdede;
 }
 
 /* ------------- Rodapé fixo ------------- */
