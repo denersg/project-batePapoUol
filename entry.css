@@ -6,11 +6,6 @@
     position: relative;
 }
 
-/* Esse trecho de código faz todo o layout da tela de entrada sumir */
-/* .entry-screen{
-    display: none;
-} */
-
 .entry-screen img{
     width: 130px;
     height: 92px;

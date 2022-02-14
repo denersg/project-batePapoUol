@@ -1,5 +1,4 @@
 .home-screen{
-    /* background-color: aqua; */
     width: 375px;
 
     position: relative;
@@ -41,7 +40,6 @@
 /* ------------- Compartimento do chat ------------- */
 
 .spacer{
-    /* background-color: tomato; */
     background-color: #f3f3f3;
     height: 90px;
 }
@@ -53,10 +51,6 @@
     position: absolute;
     top: 85px;
 }
-
-/* .message-margin{
-    margin-top: 4px;
-} */
 
 .message-box{
     padding: 13px 8px;
@@ -109,7 +103,6 @@
 }
 
 .box-footer{
-    /* background-color: aqua; */
     width: 90%;
 
     display: flex;
@@ -125,8 +118,6 @@
 }
 
 .footer input::placeholder{
-    /* background-color: hotpink; */
-
     font-style: italic;
     font-weight: normal;
     font-size: 18px;
@@ -139,13 +130,11 @@ input:focus{
 }
 
 .footer button{
-    /* width: 26px; */
     border: none;
     background-color: #fff;
 }
 
 .footer ion-icon{
-    /* background-color: orange; */
     font-size: 26px;
     color: black;
 }
