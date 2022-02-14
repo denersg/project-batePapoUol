@@ -61,6 +61,11 @@ function stayConnected(){
 
 function loadMessages(){
     let messages = [];
+    
+    // setInterval(function (){
+    //     const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages");
+    //     promise.then(showResponse);
+    // }, 3000);
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages");
     promise.then(showResponse);
 }
@@ -73,7 +78,7 @@ function showResponse(response){
         // console.log(messages[i].text)
         const message = messages[i];
         message.innerHTML = showMessageOnScreen(message, i);
-        /*Para strings sem espaço q/ escapam da tela. O máximo de caracteres q/ cabem na tela é 40*/
+        /*Para strings sem espaço q/ escapam da tela. O máximo de caracteres q/ cabem na tela é 47*/
         // console.log(message.text.length)
     }
 }
@@ -106,6 +111,13 @@ function showMessageOnScreen(message, cont){
             </li>
         `;
     }
+
+
+    //Seleciona o último elemento que aparece e rola a tela até ele
+    const lastElementThatAppears = document.querySelector(".message-box:last-child");
+    // console.log(lastElementThatAppears)
+    lastElementThatAppears.scrollIntoView();
+
     // ul.innerHTML += `
     //     <li>
     //         ${cont} -> ${message.text}
