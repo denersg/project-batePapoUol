@@ -19,6 +19,9 @@ function registerUserAndEnterTheRoom(){
 
         //Carrega as mensagens do servidor a cada 3 segundos
         setInterval(loadMessages, 3000);
+
+        //Envia a mensagem quando o usuário teclar 'Enter'
+        sendWithEnter();
     }
 }
 
@@ -109,7 +112,7 @@ function showMessageOnScreen(message, cont){
     if(message.type == "status"){
         // console.log("STATUS!!!")
         ul.innerHTML += `
-            <li class="status-message message-box">
+            <li class="status-message message-box" data-identifier="message">
                 <span>(${message.time})</span> <strong>${message.from}</strong> ${message.text}
             </li>
         `;
@@ -117,7 +120,7 @@ function showMessageOnScreen(message, cont){
     else if(message.type == "message"){
         // console.log("MESSAGE!!!")
         ul.innerHTML += `
-            <li class="normal-message message-box">
+            <li class="normal-message message-box" data-identifier="message">
                 <span>(${message.time})</span> <strong>${message.from}</strong> para <strong>${message.to}</strong>: ${message.text}
             </li>
         `;
@@ -129,7 +132,7 @@ function showMessageOnScreen(message, cont){
 
         // console.log("PRIVATE!!!")
         ul.innerHTML += `
-            <li class="private-message message-box">
+            <li class="private-message message-box" data-identifier="message">
                 <span>(${message.time})</span> <strong>${message.from}</strong> reservadamente para <strong>${message.to}</strong>: ${message.text}
             </li>
         `;
@@ -178,4 +181,13 @@ function sendMessage(){
 
 function reloadPage(){
     window.location.reload();
+}
+
+function sendWithEnter(){
+    const inputMessage = document.querySelector("footer input");
+    inputMessage.onkeydown = (e) => {
+        if(e.code === "Enter"){
+            sendMessage();
+        }
+    };
 }
