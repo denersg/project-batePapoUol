@@ -77,6 +77,21 @@ function showResponse(response){
     
     ul.innerHTML = "";
     for(let i = 0; i < messages.length; i++){
+
+        //Verifica se a mensagem é privada
+        if(messages[i].type === "private_message"){
+            //Verifica se é uma mensagem privada de outras pessoas e 'continua' o LOOP sem mostrá-la
+            if(messages[i].to !== userName && messages[i].from !== userName && messages[i].to !== "Todos"){
+
+                // console.log(i + " >>>>> sai fora xereta <<<<")
+
+                continue;//Continua o loop, ignorando este índice
+            }
+        }
+        
+        // console.log(i + " mensagem criada com SUCESSO")
+        
+        
         // console.log(messages[i].text)
         const message = messages[i];
         message.innerHTML = showMessageOnScreen(message, i);
@@ -108,6 +123,10 @@ function showMessageOnScreen(message, cont){
         `;
     }
     else if(message.type == "private_message"){
+        // console.log("Nome: " + userName)
+
+        
+
         // console.log("PRIVATE!!!")
         ul.innerHTML += `
             <li class="private-message message-box">
@@ -116,7 +135,7 @@ function showMessageOnScreen(message, cont){
         `;
     }
 
-
+    
     
 
     // ul.innerHTML += `
@@ -127,8 +146,36 @@ function showMessageOnScreen(message, cont){
 }
 
 function scrollToLastElement(){
-    //Seleciona o último elemento que aparece e desce a tela até ele
-    const lastElementThatAppears = document.querySelector(".message-box:last-child");
-    // console.log(lastElementThatAppears)
-    lastElementThatAppears.scrollIntoView();
+    //Seleciona a última mensagem que aparece e desce a tela até ela
+    const lastMessageThatAppears = document.querySelector(".message-box:last-child");
+    // console.log(lastMessageThatAppears)
+    lastMessageThatAppears.scrollIntoView();
+}
+
+
+
+
+function sendMessage(){
+    const inputMessage = document.querySelector(".footer input");
+    // console.log(inputMessage)
+    console.dir(inputMessage)
+
+    const data = {
+        from: userName,
+        to: "Todos",
+        text: inputMessage.value,
+        type: "message"
+    };
+
+    const promise = axios.post("https://mock-api.driven.com.br/api/v4/uol/messages", data);
+
+    //Reseta a caixa de digitação para o usuário poder inserir mais texto
+    inputMessage.value = "";
+    
+    promise.then(loadMessages);
+    promise.catch(reloadPage);
+}
+
+function reloadPage(){
+    window.location.reload();
 }
