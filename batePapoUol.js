@@ -15,7 +15,10 @@ function registerUserAndEnterTheRoom(){
     if(whenSuccessful){
         loadHomePage();
         stayConnected();
-        loadMessages();
+        // loadMessages();
+
+        //Carrega as mensagens do servidor a cada 3 segundos
+        setInterval(loadMessages, 3000);
     }
 }
 
@@ -60,12 +63,6 @@ function stayConnected(){
 }
 
 function loadMessages(){
-    let messages = [];
-    
-    // setInterval(function (){
-    //     const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages");
-    //     promise.then(showResponse);
-    // }, 3000);
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages");
     promise.then(showResponse);
 }
@@ -73,7 +70,12 @@ function loadMessages(){
 function showResponse(response){
     // console.log("RESPOSTA:")
     // console.log(resposta.data)
-    let messages = response.data;
+
+    //Atribui o array de mensagens
+    const messages = response.data;
+    const ul = document.querySelector("ul");
+    
+    ul.innerHTML = "";
     for(let i = 0; i < messages.length; i++){
         // console.log(messages[i].text)
         const message = messages[i];
@@ -81,6 +83,8 @@ function showResponse(response){
         /*Para strings sem espaço q/ escapam da tela. O máximo de caracteres q/ cabem na tela é 47*/
         // console.log(message.text.length)
     }
+
+    scrollToLastElement();
 }
 
 function showMessageOnScreen(message, cont){
@@ -113,14 +117,18 @@ function showMessageOnScreen(message, cont){
     }
 
 
-    //Seleciona o último elemento que aparece e rola a tela até ele
-    const lastElementThatAppears = document.querySelector(".message-box:last-child");
-    // console.log(lastElementThatAppears)
-    lastElementThatAppears.scrollIntoView();
+    
 
     // ul.innerHTML += `
     //     <li>
     //         ${cont} -> ${message.text}
     //     </li>
     // `;
+}
+
+function scrollToLastElement(){
+    //Seleciona o último elemento que aparece e desce a tela até ele
+    const lastElementThatAppears = document.querySelector(".message-box:last-child");
+    // console.log(lastElementThatAppears)
+    lastElementThatAppears.scrollIntoView();
 }
